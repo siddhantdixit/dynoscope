@@ -1,0 +1,23 @@
+.query-builder {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.query-builder__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.query-builder__footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border-subtle);
+}

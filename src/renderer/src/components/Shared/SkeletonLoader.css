@@ -1,0 +1,12 @@
+.skeleton--circle {
+  border-radius: 50%;
+}
+
+.skeleton--text {
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-1);
+}
+
+.skeleton--rect {
+  border-radius: var(--radius-md);
+}

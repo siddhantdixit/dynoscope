@@ -1,0 +1,24 @@
+.table-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.table-list__loading {
+  padding: var(--space-2);
+}
+
+.table-list__skeleton {
+  margin-bottom: var(--space-2);
+  border-radius: var(--radius-md);
+}
+
+.table-list__empty {
+  padding: var(--space-4);
+  text-align: center;
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-sm);
+}

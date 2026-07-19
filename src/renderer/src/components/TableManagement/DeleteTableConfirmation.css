@@ -1,0 +1,50 @@
+.delete-table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.delete-table__warning {
+  display: flex;
+  gap: var(--space-3);
+  background: var(--color-danger-subtle);
+  border: 1px solid hsla(0, 85%, 60%, 0.2);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  color: var(--color-danger);
+}
+
+.delete-table__icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.delete-table__text {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+}
+
+.delete-table__text p {
+  margin: var(--space-2) 0 0 0;
+  color: var(--color-text-primary);
+}
+
+.delete-table__text code {
+  background: var(--color-bg-elevated);
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  color: var(--color-text-primary);
+}
+
+.delete-table__confirm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.delete-table__confirm p {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}

@@ -1,0 +1,58 @@
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.connection-status__indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.connection-status__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--success);
+  box-shadow: 0 0 8px hsla(142, 70%, 45%, 0.5);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.connection-status__info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.connection-status__label {
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  font-weight: var(--font-medium);
+}
+
+.connection-status__disconnect {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border: none;
+  background: transparent;
+  color: var(--text-tertiary);
+  font-size: var(--font-xs);
+  font-family: inherit;
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.connection-status__disconnect:hover {
+  color: var(--danger);
+  background: hsla(0, 80%, 50%, 0.1);
+}
+
+.connection-status__disconnect svg {
+  width: 14px;
+  height: 14px;
+}

@@ -1,0 +1,32 @@
+.scan-mode {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.scan-mode__info {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  background: hsla(210, 100%, 56%, 0.1);
+  border: 1px solid hsla(210, 100%, 56%, 0.2);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+}
+
+.scan-mode__info-icon {
+  color: var(--color-info);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.scan-mode__info p {
+  margin: 0;
+}
+
+.scan-mode__info strong {
+  color: var(--color-text-primary);
+}

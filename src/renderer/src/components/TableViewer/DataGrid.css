@@ -1,0 +1,89 @@
+.data-grid-container {
+  flex: 1;
+  overflow: auto;
+  position: relative;
+}
+
+.data-grid {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: left;
+  font-size: var(--font-size-sm);
+}
+
+.data-grid th {
+  position: sticky;
+  top: 0;
+  background: var(--color-bg-secondary);
+  padding: var(--space-2) var(--space-3);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 10;
+  white-space: nowrap;
+}
+
+.data-grid th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.data-grid th.sortable:hover {
+  background: var(--color-bg-hover);
+  color: var(--color-text-primary);
+}
+
+.th-content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.th-key {
+  color: var(--color-accent);
+}
+
+.data-grid td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border-subtle);
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.data-grid tbody tr {
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.data-grid tbody tr:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.data-grid tbody tr:nth-child(even) {
+  background-color: hsla(220, 15%, 50%, 0.03);
+}
+
+.cell-null {
+  color: var(--color-text-tertiary);
+  font-style: italic;
+}
+
+.cell-object {
+  color: var(--color-info);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  background: hsla(210, 100%, 56%, 0.1);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.cell-text {
+  display: block;
+}
+
+.data-grid__loading {
+  padding: var(--space-4);
+}

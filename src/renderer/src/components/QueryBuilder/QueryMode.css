@@ -1,0 +1,31 @@
+.query-mode {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.query-mode__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.query-mode__title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.query-mode__row {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.query-mode__keys {
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr;
+  gap: var(--space-3);
+}
