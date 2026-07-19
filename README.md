@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="build/icon.png" alt="DynoScope Logo" width="128">
+  <img src="https://api.iconify.design/logos:aws-dynamodb.svg" alt="DynoScope Logo" width="128">
 </p>
 
 <h1 align="center">DynoScope</h1>
