@@ -10,7 +10,6 @@
   flex: 1;
   display: flex;
   min-height: 0;
-  gap: var(--space-4);
 }
 
 .table-viewer__grid-wrapper {
@@ -21,4 +20,11 @@
   border-radius: var(--radius-md);
   display: flex;
   flex-direction: column;
+}
+
+/* When inspector is open, connect them seamlessly */
+.table-viewer__content:has(.item-inspector) .table-viewer__grid-wrapper {
+  border-right: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }

@@ -12,9 +12,14 @@ function createWindow(): void {
     height: 900,
     minWidth: 1024,
     minHeight: 700,
-    show: false,
+    show: true,
     backgroundColor: '#0f0f23',
-    titleBarStyle: 'hiddenInset',
+    titleBarStyle: 'hidden',
+    titleBarOverlay: {
+      color: '#080a10',
+      symbolColor: '#a1a1aa',
+      height: 36
+    },
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,
@@ -153,8 +158,9 @@ function createMenu(): void {
     }
   ]
 
-  const menu = Menu.buildFromTemplate(template)
-  Menu.setApplicationMenu(menu)
+  // We use a custom HTML TitleBar, so we remove the native application menu entirely on Windows/Linux,
+  // but we can still build it if we wanted it for macOS. For a full VS Code-like experience, we just hide it.
+  Menu.setApplicationMenu(null)
 }
 
 app.whenReady().then(() => {

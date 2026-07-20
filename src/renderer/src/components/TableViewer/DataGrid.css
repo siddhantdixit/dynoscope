@@ -6,6 +6,8 @@
 
 .data-grid {
   width: 100%;
+  min-width: max-content;
+  table-layout: fixed;
   border-collapse: separate;
   border-spacing: 0;
   text-align: left;
@@ -44,10 +46,32 @@
   color: var(--color-accent);
 }
 
+.resizer {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 5px;
+  background: rgba(0, 0, 0, 0.2);
+  cursor: col-resize;
+  user-select: none;
+  touch-action: none;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.data-grid th:hover .resizer,
+.resizer.isResizing {
+  opacity: 1;
+}
+
+.resizer.isResizing {
+  background: var(--color-accent);
+}
+
 .data-grid td {
   padding: var(--space-2) var(--space-3);
   border-bottom: 1px solid var(--color-border-subtle);
-  max-width: 300px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

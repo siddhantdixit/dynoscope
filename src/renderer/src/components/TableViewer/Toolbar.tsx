@@ -1,5 +1,5 @@
-import React from "react";
-import { Play, Plus, Trash2, Download, Search } from "lucide-react";
+import React, { useState, useRef, useEffect } from "react";
+import { Play, Plus, Trash2, Download, Search, ChevronDown } from "lucide-react";
 import { useDataStore } from "../../store/dataStore";
 import { useTablesStore } from "../../store/tablesStore";
 import { useUIStore } from "../../store/uiStore";
@@ -29,6 +29,18 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   } = useDataStore();
   const { toggleQueryBuilder, queryBuilderExpanded, openModal } = useUIStore();
   const { selectedTable } = useTablesStore();
+  const [isExportOpen, setIsExportOpen] = useState(false);
+  const exportRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (exportRef.current && !exportRef.current.contains(event.target as Node)) {
+        setIsExportOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <div className="toolbar">
@@ -103,32 +115,38 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           Add Item
         </Button>
 
-        <div className="toolbar__export">
+        <div className="toolbar__export" ref={exportRef}>
           <Button
-            variant="ghost"
+            variant="secondary"
             icon={<Download size={16} />}
-            onClick={onExportJSON}
-            title="Export to JSON"
-            aria-label="Export to JSON"
-          />
-          <Button
-            variant="ghost"
-            icon={<Download size={16} />}
-            onClick={onExportCSV}
-            title="Export to CSV"
-            aria-label="Export to CSV"
-          />
+            onClick={() => setIsExportOpen(!isExportOpen)}
+          >
+            Export <ChevronDown size={14} style={{ marginLeft: 4 }} />
+          </Button>
+          
+          {isExportOpen && (
+            <div className="toolbar__export-menu">
+              <button
+                className="toolbar__export-item"
+                onClick={() => {
+                  onExportCSV();
+                  setIsExportOpen(false);
+                }}
+              >
+                Export CSV
+              </button>
+              <button
+                className="toolbar__export-item"
+                onClick={() => {
+                  onExportJSON();
+                  setIsExportOpen(false);
+                }}
+              >
+                Export JSON
+              </button>
+            </div>
+          )}
         </div>
-
-        <div className="toolbar__divider" />
-
-        <Button
-          variant="danger"
-          icon={<Trash2 size={16} />}
-          onClick={() => openModal("deleteTable")}
-          title="Delete Table"
-          aria-label="Delete Table"
-        />
       </div>
     </div>
   );

@@ -102,6 +102,7 @@ export const DataGrid: React.FC = () => {
     state: {
       sorting,
     },
+    columnResizeMode: "onChange",
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -127,7 +128,7 @@ export const DataGrid: React.FC = () => {
 
   return (
     <div className="data-grid-container">
-      <table className="data-grid">
+      <table className="data-grid" style={{ width: table.getTotalSize() }}>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -144,6 +145,7 @@ export const DataGrid: React.FC = () => {
                     key={header.id}
                     onClick={header.column.getToggleSortingHandler()}
                     className={header.column.getCanSort() ? "sortable" : ""}
+                    style={{ width: header.getSize() }}
                   >
                     <div className={`th-content ${isKey ? "th-key" : ""}`}>
                       {flexRender(
@@ -155,6 +157,14 @@ export const DataGrid: React.FC = () => {
                         desc: " ↓",
                       }[header.column.getIsSorted() as string] ?? null}
                     </div>
+                    <div
+                      onMouseDown={header.getResizeHandler()}
+                      onTouchStart={header.getResizeHandler()}
+                      className={`resizer ${
+                        header.column.getIsResizing() ? "isResizing" : ""
+                      }`}
+                      onClick={(e) => e.stopPropagation()}
+                    />
                   </th>
                 );
               })}
@@ -175,7 +185,7 @@ export const DataGrid: React.FC = () => {
               }}
             >
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
+                <td key={cell.id} style={{ width: cell.column.getSize() }}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}

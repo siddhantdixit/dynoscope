@@ -13,7 +13,14 @@ import {
   CreateTableModal,
   DeleteTableConfirmation,
 } from "./components/TableManagement";
+import { TitleBar } from "./components/TitleBar";
 import "./App.css";
+
+declare global {
+  interface Window {
+    api: any;
+  }
+}
 
 const App: React.FC = () => {
   const { isConnected, setDisconnected } = useConnectionStore();
@@ -25,10 +32,10 @@ const App: React.FC = () => {
   }, [theme]);
 
   useEffect(() => {
-    if (!window.api?.app?.onMenuCommand) return;
-
-    const cleanup = window.api.app.onMenuCommand((command) => {
-      console.log("Menu command:", command);
+    const handleMenuAction = (e: Event) => {
+      const customEvent = e as CustomEvent<string>;
+      const command = customEvent.detail;
+      console.log("Custom menu command:", command);
       switch (command) {
         case "toggle-sidebar":
           toggleSidebar();
@@ -43,23 +50,44 @@ const App: React.FC = () => {
         case "export-csv":
           console.log("Trigger CSV export (TODO)");
           break;
+        case "toggle-devtools":
+          window.api?.app?.onMenuCommand && console.log("DevTools handled natively or needs IPC if not working");
+          break;
       }
-    });
+    };
 
-    return cleanup;
+    window.addEventListener("menu-action", handleMenuAction);
+
+    // Also keep the IPC listener for actual native menu fallbacks on mac
+    let cleanup = () => {};
+    if (window.api?.app?.onMenuCommand) {
+      cleanup = window.api.app.onMenuCommand((command: string) => {
+        window.dispatchEvent(new CustomEvent("menu-action", { detail: command }));
+      });
+    }
+
+    return () => {
+      window.removeEventListener("menu-action", handleMenuAction);
+      cleanup();
+    };
   }, [toggleSidebar, setDisconnected]);
 
   if (!isConnected) {
     return (
-      <>
-        <ConnectionScreen />
-        <ToastContainer />
-      </>
+      <div className="app-container" data-theme={theme}>
+        <TitleBar />
+        <div className="app">
+          <ConnectionScreen />
+          <ToastContainer />
+        </div>
+      </div>
     );
   }
 
   return (
-    <div className="app">
+    <div className="app-container" data-theme={theme}>
+      <TitleBar />
+      <div className="app">
       <header className="app__header">
         <div className="app__header-left">
           <Button
@@ -116,6 +144,7 @@ const App: React.FC = () => {
       <ItemEditorModal />
       <CreateTableModal />
       <DeleteTableConfirmation />
+      </div>
     </div>
   );
 };

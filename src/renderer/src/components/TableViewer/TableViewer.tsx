@@ -41,7 +41,7 @@ export const TableViewer: React.FC = () => {
         if (scanResult.success && scanResult.data) {
           setItems(
             scanResult.data.items,
-            scanResult.data.lastKey,
+            scanResult.data.lastEvaluatedKey,
             scanResult.data.count,
             scanResult.data.scannedCount,
           );
@@ -78,7 +78,7 @@ export const TableViewer: React.FC = () => {
       if (result.success && result.data) {
         setItems(
           result.data.items,
-          result.data.lastKey,
+          result.data.lastEvaluatedKey,
           result.data.count,
           result.data.scannedCount,
         );
@@ -107,7 +107,7 @@ export const TableViewer: React.FC = () => {
       if (result.success && result.data) {
         setItems(
           result.data.items,
-          result.data.lastKey,
+          result.data.lastEvaluatedKey,
           result.data.count,
           result.data.scannedCount,
         );

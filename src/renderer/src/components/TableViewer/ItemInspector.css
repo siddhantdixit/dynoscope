@@ -1,13 +1,33 @@
 .item-inspector {
-  width: 360px;
   background: var(--bg-secondary);
-  border-left: 1px solid var(--border);
+  border: 1px solid var(--border);
+  border-top-right-radius: var(--radius-md);
+  border-bottom-right-radius: var(--radius-md);
   display: flex;
   flex-direction: column;
   height: 100%;
   flex-shrink: 0;
   box-shadow: -4px 0 24px hsla(0, 0%, 0%, 0.1);
   z-index: 5;
+  position: relative;
+}
+
+.item-inspector__resizer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  transform: translateX(-50%);
+  cursor: ew-resize;
+  z-index: 10;
+  background-color: transparent;
+  transition: background-color var(--transition-fast);
+}
+
+.item-inspector__resizer:hover,
+.item-inspector__resizer.is-resizing {
+  background-color: var(--accent);
 }
 
 .item-inspector__header {
@@ -64,17 +84,31 @@
 }
 
 /* Syntax Highlighting for custom renderer */
+.item-inspector {
+  --json-key: hsl(200, 100%, 75%); /* Light blue */
+  --json-string: hsl(120, 60%, 65%); /* Green */
+  --json-number: hsl(30, 100%, 65%); /* Orange */
+  --json-boolean: hsl(280, 80%, 75%); /* Purple */
+}
+
+:root[data-theme="light"] .item-inspector {
+  --json-key: hsl(210, 80%, 40%); /* Darker blue */
+  --json-string: hsl(120, 70%, 30%); /* Darker green */
+  --json-number: hsl(30, 90%, 45%); /* Darker orange */
+  --json-boolean: hsl(280, 70%, 50%); /* Darker purple */
+}
+
 .inspector-key {
-  color: hsl(200, 100%, 70%); /* Light blue */
+  color: var(--json-key);
 }
 .inspector-string {
-  color: hsl(120, 70%, 60%); /* Green */
+  color: var(--json-string);
 }
 .inspector-number {
-  color: hsl(30, 100%, 65%); /* Orange */
+  color: var(--json-number);
 }
 .inspector-boolean {
-  color: hsl(280, 80%, 70%); /* Purple */
+  color: var(--json-boolean);
 }
 .inspector-null {
   color: var(--text-tertiary);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { X, Copy, CheckCircle2 } from 'lucide-react';
 import { useUIStore } from '../../store/uiStore';
 import { Button } from '../Shared';
@@ -6,7 +6,43 @@ import './ItemInspector.css';
 
 export const ItemInspector: React.FC = () => {
   const { inspectorData, closeInspector } = useUIStore();
-  const [copied, setCopied] = React.useState(false);
+  const [copied, setCopied] = useState(false);
+  
+  const [width, setWidth] = useState(360);
+  const [isResizing, setIsResizing] = useState(false);
+  const resizeRef = useRef<{ startX: number; startWidth: number } | null>(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isResizing || !resizeRef.current) return;
+      const deltaX = resizeRef.current.startX - e.clientX;
+      const newWidth = Math.max(250, Math.min(1000, resizeRef.current.startWidth + deltaX));
+      setWidth(newWidth);
+    };
+
+    const handleMouseUp = () => {
+      setIsResizing(false);
+      resizeRef.current = null;
+    };
+
+    if (isResizing) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    }
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isResizing]);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsResizing(true);
+    resizeRef.current = {
+      startX: e.clientX,
+      startWidth: width,
+    };
+  };
 
   if (!inspectorData) return null;
 
@@ -70,7 +106,11 @@ export const ItemInspector: React.FC = () => {
   };
 
   return (
-    <div className="item-inspector animate-slide-in-right">
+    <div className="item-inspector animate-slide-in-right" style={{ width }}>
+      <div 
+        className={`item-inspector__resizer ${isResizing ? 'is-resizing' : ''}`} 
+        onMouseDown={handleMouseDown} 
+      />
       <div className="item-inspector__header">
         <h3 className="item-inspector__title">
           <span className="item-inspector__label">Inspecting:</span>
