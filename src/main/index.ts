@@ -20,6 +20,7 @@ function createWindow(): void {
       symbolColor: '#a1a1aa',
       height: 36
     },
+    autoHideMenuBar: true,
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,
@@ -158,9 +159,9 @@ function createMenu(): void {
     }
   ]
 
-  // We use a custom HTML TitleBar, so we remove the native application menu entirely on Windows/Linux,
-  // but we can still build it if we wanted it for macOS. For a full VS Code-like experience, we just hide it.
-  Menu.setApplicationMenu(null)
+  // We use a custom HTML TitleBar, so we hide the native application menu,
+  // but we still need to set it so that keyboard shortcuts (like Zoom) continue to work!
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 }
 
 app.whenReady().then(() => {
